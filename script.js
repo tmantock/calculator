@@ -66,6 +66,7 @@ function equate () {
     var numberSecond = parseInt(inputArray[1]);
     var equation = numberFirst + numberSecond;
     $('.output').html(equation);
+    firstNumber = '';
 }
 
 function clearScreen () {
