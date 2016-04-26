@@ -29,24 +29,19 @@
                 subsequentNumber = $(element).html();
                 numberArray.push(subsequentNumber);
                 console.log('Subsequent Number is: ' + subsequentNumber);
-
-                if (subsequentNumber == '+' && click == true) {
-                    click = false;
-                    console.log('end');
-
-                   //if(clicks == null) {
-                     //  clicks=true;
-                       //secondDigitNumber = $(element).html();
-                       //numberArray.push(secondDigitNumber);
-                       //console.log('Second Digit number is: ' + secondDigitNumber);
-                   //}
-
-                    //else {
-                    //   subsequentDigitNumber = $(element).html();
-                    //   numberArray.push(subsequentDigitNumber);
-                    //   console.log('Subsequent Digit Number is: ' + subsequentDigitNumber);
-                   //}
-                }
+            }
+            else if ($(element.html)== '+' ) {
+                    if (clicks==null) {
+                        clicks==true;
+                        secondDigitNumber=$(element).html();
+                        console.log('Subsequent Digit: ' + secondDigitNumber);
+                    }
+                    else {
+                         subsequentDigitNumber=$(element).html();
+                         console.log('Second Sub #: '+ subsequentDigitNumber);
+                    }
+                secondDigitNumber+=subsequentDigitNumber;
+                console.log(secondDigitNumber);
             }
             firstNumber += subsequentNumber;
             $('.output').html(firstNumber);

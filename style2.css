@@ -1,0 +1,84 @@
+.calculatorContainer {
+    width: 30vw;
+    height: 80vh;
+    position: relative;
+    left: 35%;
+}
+.calculator {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 45%;
+    left: 45%;
+    transform: translate(-45%,-38%);
+}
+
+.output {
+    height: 20%;
+    padding: 0 !important;
+}
+
+.screen {
+    height: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+    background: #ECECEC;
+}
+
+.calcBody {
+    height: 80%;
+    margin: 0;
+    padding: 0 !important;
+    background: #913D88;
+}
+
+.numericalContainer {
+    height: 100%;
+    padding: 0 !important;
+}
+
+.calcRowOne,
+.calcRowTwo,
+.calcRowThree,
+.calcRowFour,
+.calcRowFive,
+.calcRowSix {
+    height: 20%;
+    padding: 0 !important;
+}
+
+.button {
+    height: 100%;
+    border: 1px solid black;
+}
+
+.operatorContainer {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 !important;
+}
+
+.operator {
+    text-align: center;
+    height: 20%;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.operator h3 {
+    position: relative;
+    top: 15%;
+    transform: translateY(-45%);
+}
+
+.circle {
+    height: 90%;
+    width: 90%;
+    border-radius: 50%;
+    background: #E87E04;
+}
+
+h3  {
+    text-align: center;
+}
+
