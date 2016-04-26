@@ -3,6 +3,7 @@
     height: 80vh;
     position: relative;
     left: 35%;
+    font-family: 'Roboto', sans-serif;
 }
 .calculator {
     height: 100%;
@@ -11,9 +12,10 @@
     top: 45%;
     left: 45%;
     transform: translate(-45%,-38%);
+    border: 1px solid #000000;
 }
 
-.output {
+.screen-container {
     height: 20%;
     padding: 0 !important;
 }
@@ -23,6 +25,13 @@
     border: 1px solid black;
     box-sizing: border-box;
     background: #ECECEC;
+}
+
+.output {
+    position: relative;
+    top: 45%;
+    left: 20%;
+    transform: translateY(-45%);
 }
 
 .calcBody {
@@ -47,15 +56,38 @@
     padding: 0 !important;
 }
 
+.calcRowOne {
+    background: #F89406;
+    color: #ffffff;
+    transition: all 1s;
+}
+
+.darkOrange {
+    background: #D35400;
+}
+
+
+
+.clear,
 .button {
     height: 100%;
-    border: 1px solid black;
+    border: .001em solid #000000;
+    text-align: center;
+    transition: all .1s;
+}
+
+h3 {
+    position: relative;
+    top: 15%;
+    transform: translateY(-15%);
 }
 
 .operatorContainer {
     height: 100%;
     box-sizing: border-box;
     padding: 0 !important;
+    background: #2C3E50;
+    color: #ffffff;
 }
 
 .operator {
@@ -65,10 +97,9 @@
     border: 1px solid black;
 }
 
-.operator h3 {
-    position: relative;
-    top: 15%;
-    transform: translateY(-45%);
+.whitePress {
+    background: #D2D7D3;
+    color: black;
 }
 
 .circle {
@@ -76,6 +107,10 @@
     width: 90%;
     border-radius: 50%;
     background: #E87E04;
+}
+
+.square {
+    border-radius: 0%;
 }
 
 h3  {

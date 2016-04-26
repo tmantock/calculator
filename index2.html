@@ -8,44 +8,38 @@
     <script src ="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-    <script>
-        $(document).ready(function () {
-        $('.button').click(function () {
-            $(this).addClass('circle');
-        })
-        });
-
-    </script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src = "script.js"></script>
 </head>
 <body>
 <div class = "calculatorContainer">
     <div class = "calculator">
-        <div class = "output col-sm-12">
-            <div class = "screen"></div>
+        <div class = "screen-container col-sm-12">
+            <div class = "screen"><h1 class = "output"></h1></div>
         </div>
         <div class = "calcBody col-sm-12">
             <div class = "numericalContainer col-sm-9">
                 <div class = "calcRowOne col-sm-12">
-                    <div class = "button col-sm-4" ><h3>C</h3></div>
-                    <div class = "button col-sm-8"><h3>A/C</h3></div>
+                    <div onclick="clearScreen()" class = "clear col-sm-4" ><h3>C</h3></div>
+                    <div onclick="clearScreen()" class = "clear col-sm-8"><h3>A/C</h3></div>
                 </div>
                 <div class = "calcRowTwo col-sm-12">
-                    <div class = "button col-sm-4"><h3>1</h3></div>
-                    <div class = "button col-sm-4"><h3>2</h3></div>
-                    <div class = "button col-sm-4"><h3>3</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">1</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">2</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">3</h3></div>
                 </div>
                 <div class = "calcRowThree col-sm-12">
-                    <div class = "button col-sm-4"><h3>4</h3></div>
-                    <div class = "button col-sm-4"><h3>5</h3></div>
-                    <div class = "button col-sm-4"><h3>6</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">4</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">5</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">6</h3></div>
                 </div>
                 <div class = "calcRowFour col-sm-12">
-                    <div class = "button col-sm-4"><h3>7</h3></div>
-                    <div class = "button col-sm-4"><h3>8</h3></div>
-                    <div class = "button col-sm-4"><h3>9</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">7</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">8</h3></div>
+                    <div class = "button col-sm-4"><h3 onclick = "digit_input_one(this)">9</h3></div>
                 </div>
                 <div class = "calcRowFive col-sm-12">
-                    <div class = "button col-sm-8"><h3>0</h3></div>
+                    <div class = "button col-sm-8"><h3 onclick = "digit_input_one(this)">0</h3></div>
                     <div class = "button col-sm-4"><h3>.</h3></div>
                 </div>
             </div>
@@ -53,8 +47,8 @@
                 <div class = "operator col-sm-12"><h3>/</h3></div>
                 <div  class = "operator col-sm-12"><h3>*</h3></div>
                 <div class = "operator col-sm-12"><h3>-</h3></div>
-                <div class = "operator col-sm-12"><h3>+</h3></div>
-                <div class = "operator col-sm-12"><h3>=</h3></div>
+                <div class = "operator col-sm-12"><h3 onclick = "sum()">+</h3></div>
+                <div class = "operator col-sm-12"><h3 onclick = "equate()">=</h3></div>
             </div>
         </div>
     </div>
