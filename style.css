@@ -1,0 +1,51 @@
+.calculatorContainer {
+    width: 50vw;
+    height: 70vh;
+}
+.output {
+    height: 20%;
+    width: 100%;
+}
+
+.screen {
+    height: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+
+.calcBody {
+    height: 80%;
+    margin: 0;
+}
+
+.numericalContainer {
+    height: 100%;
+    padding: 0 !important;
+}
+
+.calcRowOne,
+.calcRowTwo,
+.calcRowThree,
+.calcRowFour,
+.calcRowFive,
+.calcRowSix {
+    height: 16%;
+    padding: 0 !important;
+}
+
+.operatorContainer {
+    height: 80%;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.button {
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.operator {
+    height: 20%;
+}
