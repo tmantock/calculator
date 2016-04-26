@@ -58,15 +58,11 @@
 
 .calcRowOne {
     background: #F89406;
-    color: #ffffff;
-    transition: all 1s;
 }
 
 .darkOrange {
     background: #D35400;
 }
-
-
 
 .clear,
 .button {
@@ -74,6 +70,7 @@
     border: .001em solid #000000;
     text-align: center;
     transition: all .1s;
+    color: #ffffff;
 }
 
 h3 {
@@ -103,10 +100,9 @@ h3 {
 }
 
 .circle {
-    height: 90%;
-    width: 90%;
     border-radius: 50%;
     background: #F89406;
+    color: #000000;
 }
 
 .square {
@@ -115,5 +111,9 @@ h3 {
 
 h3  {
     text-align: center;
+}
+
+.expand {
+
 }
 
