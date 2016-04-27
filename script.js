@@ -28,7 +28,6 @@ var inputArray = [];
 var click = null;
 var firstNumber = '';
 var subsequentNumber = '';
-//var canClick = true;
 
 function digit_input_one (element) {
     if (click == null) {
@@ -63,12 +62,13 @@ function equate () {
     var result;
     var i;
     firstNumber = '';
-    for(i=0; i<inputArray.length; i+=2) {
+    for(i=0; i<inputArray.length; i) {
+        console.log(i);
         var x = parseInt(inputArray[i]);
-        console.log(x);
+        console.log('x= '+x);
         var y = parseInt(inputArray[i+=2]);
-        console.log(y);
-        console.log('loop: ',inputArray[i]);
+        console.log('y= '+y);
+        console.log('loop: ',inputArray);
         console.log(inputArray[1]);
         i--;
 
@@ -76,27 +76,30 @@ function equate () {
             result = x-y;
             inputArray.splice(0,3,result);
             console.log('sub: ' + result);
-            console.log('if: '+i);
+            console.log('if: '+ i);
             console.log(inputArray);
             console.log(result);
+            i=0;
         }
 
         else if (String(inputArray[i]) == "+") {
             result = x+y;
             inputArray.splice(0,3,result);
             console.log('sum: ' + result);
-            console.log('if: '+i);
+            console.log('if: '+ i);
             console.log(inputArray);
             console.log(result);
+            i=0;
         }
 
         else if (String(inputArray[i]) == '*') {
             result = x*y;
             inputArray.splice(0,3,result);
             console.log('mult: ' + result);
-            console.log('if: '+i);
+            console.log('if: '+ i);
             console.log(inputArray);
             console.log(result);
+            i=0;
         }
 
         else if (String(inputArray[i]) == '/') {
@@ -106,15 +109,12 @@ function equate () {
             console.log('if: '+i);
             console.log(inputArray);
             console.log(result);
-        }
-
-        else {
-            console.log('you messed up');
-            return;
+            i=0;
         }
 
     }
     $('.output').html(result);
+    console.log('reached end of function');
 }
 
 function clearScreen () {
