@@ -64,9 +64,9 @@ function equate () {
     firstNumber = '';
     for(i=0; i<inputArray.length; i) {
         console.log(i);
-        var x = parseInt(inputArray[i]);
+        var x = parseFloat(inputArray[i]);
         console.log('x= '+x);
-        var y = parseInt(inputArray[i+=2]);
+        var y = parseFloat(inputArray[i+=2]);
         console.log('y= '+y);
         console.log('loop: ',inputArray);
         console.log(inputArray[1]);
@@ -75,44 +75,74 @@ function equate () {
         if (String(inputArray[i]) == "-") {
             result = x-y;
             inputArray.splice(0,3,result);
+            var decimalSub = String(result);
             console.log('sub: ' + result);
             console.log('if: '+ i);
-            console.log(inputArray);
-            console.log(result);
+            console.log('Array: ' + inputArray);
+            console.log('result: ' + result);
             i=0;
+
+            if (decimalSub.length > 6) {
+                var decimalFloatSub = parseFloat(decimalSub);
+                var decimalFixedSub = decimalFloatSub.toFixed(6);
+                result = decimalFixedSub;
+            }
         }
 
         else if (String(inputArray[i]) == "+") {
             result = x+y;
             inputArray.splice(0,3,result);
+            var decimalSum = String(result);
             console.log('sum: ' + result);
             console.log('if: '+ i);
-            console.log(inputArray);
-            console.log(result);
+            console.log('Array: ' + inputArray);
+            console.log('result: ' + result);
             i=0;
+
+            if (decimalSum.length > 6) {
+                var decimalFloatSum = parseFloat(decimalSum);
+                var decimalFixedSum = decimalFloatSum.toFixed(6);
+                result = decimalFixedSum;
+            }
         }
 
         else if (String(inputArray[i]) == '*') {
             result = x*y;
             inputArray.splice(0,3,result);
+            var decimalMult = String(result);
             console.log('mult: ' + result);
             console.log('if: '+ i);
-            console.log(inputArray);
-            console.log(result);
+            console.log('Array: ' + inputArray);
+            console.log('result: ' + result);
             i=0;
+
+            if (decimalMult.length > 6) {
+                var decimalFloatMult = parseFloat(decimalMult);
+                var decimalFixedMult = decimalFloatMult.toFixed(6);
+                result = decimalFixedMult;
+            }
         }
 
         else if (String(inputArray[i]) == '/') {
             result = x/y;
             inputArray.splice(0,3,result);
+            var decimalDiv = String(result);
             console.log('division: ' + result);
             console.log('if: '+i);
-            console.log(inputArray);
-            console.log(result);
+            console.log('Array: ' + inputArray);
+            console.log('result: ' + result);
             i=0;
+
+            if (decimalDiv.length > 6) {
+                var decimalFloatDiv = parseFloat(decimalDiv);
+                var decimalFixedDiv = decimalFloatDiv.toFixed(6);
+                result = decimalFixedDiv;
+            }
         }
 
     }
+
+
     $('.output').html(result);
     console.log('reached end of function');
 }
