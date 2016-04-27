@@ -24,14 +24,10 @@ $(document).ready(function () {
     });
 });
 
-number = '';
 var inputArray = [];
 var click = null;
-var clicks = null;
 var firstNumber = '';
 var subsequentNumber = '';
-var secondNumber;
-var subsequentSecondNumber;
 //var canClick = true;
 
 function digit_input_one (element) {
@@ -52,9 +48,10 @@ function digit_input_one (element) {
     console.log(firstNumber);
 }
 
-function sum () {
+function operate (element) {
+    var operator = $(element).html();
     var screenOutput = $('.output').html();
-    inputArray.push(screenOutput);
+    inputArray.push(screenOutput,operator);
     console.log(inputArray);
     firstNumber = '';
 }
@@ -62,11 +59,62 @@ function sum () {
 function equate () {
     var screenOutput = $('.output').html();
     inputArray.push(screenOutput);
-    var numberFirst = parseInt(inputArray[0]);
-    var numberSecond = parseInt(inputArray[1]);
-    var equation = numberFirst + numberSecond;
-    $('.output').html(equation);
+    console.log(inputArray);
+    var result;
+    var i;
     firstNumber = '';
+    for(i=0; i<inputArray.length; i+=2) {
+        var x = parseInt(inputArray[i]);
+        console.log(x);
+        var y = parseInt(inputArray[i+=2]);
+        console.log(y);
+        console.log('loop: ',inputArray[i]);
+        console.log(inputArray[1]);
+        i--;
+
+        if (String(inputArray[i]) == "-") {
+            result = x-y;
+            inputArray.splice(0,3,result);
+            console.log('sub: ' + result);
+            console.log('if: '+i);
+            console.log(inputArray);
+            console.log(result);
+        }
+
+        else if (String(inputArray[i]) == "+") {
+            result = x+y;
+            inputArray.splice(0,3,result);
+            console.log('sum: ' + result);
+            console.log('if: '+i);
+            console.log(inputArray);
+            console.log(result);
+        }
+
+        else if (String(inputArray[i]) == '*') {
+            result = x*y;
+            inputArray.splice(0,3,result);
+            console.log('mult: ' + result);
+            console.log('if: '+i);
+            console.log(inputArray);
+            console.log(result);
+        }
+
+        else if (String(inputArray[i]) == '/') {
+            result = x/y;
+            inputArray.splice(0,3,result);
+            console.log('division: ' + result);
+            console.log('if: '+i);
+            console.log(inputArray);
+            console.log(result);
+        }
+
+        else {
+            console.log('you messed up');
+            return;
+        }
+
+    }
+    $('.output').html(result);
 }
 
 function clearScreen () {
