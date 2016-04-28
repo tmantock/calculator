@@ -123,6 +123,7 @@ function equate () {
     }
 }
 
+//Tip Calc test//
 function tipCalculator () {
     $('.calculatorContainer').css('width','45vw');
     $('.numericalContainer').removeClass('col-sm-9').addClass('col-sm-8');
@@ -149,21 +150,38 @@ function tipCalculator () {
 //    $('.expansion').prop('onclick',null).off('click').attr('click',"tipCalculator()");
 //}
 
+//Tip Calc Test//
+//**Warning**Calculator can only expand once and cannot hide
 function tipCalc (value) {
+    // ********** LF Start
+    //variable set to retrieve the value of the tip button clicked Cheap/Meh/Wow!
     var tipRetriever = $(value).children('h3');
+    //Grab the number on the DOM (output/screen). Would be more effective to grab from global variable for logging in numbers
     var mealCost = $('.output').html();
+    //declare a variable to store the result
     var result;
+    //declare conditional statement to determine what the tip percentage should be
+    //Cheap conditional
     if (tipRetriever == 'Cheap') {
+        //previously declared variable equated to the meal times percentage of a "cheap" tip
         result = 0.05*mealCost;
     }
-    else if (tipRetriever=='Meh') {
+    //Average conditional
+    else if (tipRetriever == 'Meh') {
+        //previously declared variable equated to the meal times percentage of an "average" tip
         result = 0.08*mealCost;
     }
-    else if (tipRetriever) {
+    //Generous conditional
+    else if (tipRetriever == 'Wow!') {
+        //previously declared variable equated to the meal times percentage of a "generous" tip
         result = 0.15*mealCost;
     }
+    //declared variable to have the decimal places fixed to 2 for monetary reasons
     var tip = result.toFixed(2);
+    //Display the tip amount with a dollar sign to the DOM (screen)
     $('.output').html('$' + tip);
+
+    // *********** LF End
 }
 
 function clearScreen () {
