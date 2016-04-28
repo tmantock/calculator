@@ -69,7 +69,7 @@ function equate () {
     firstNumber = '';
     subsequentNumber = '';
     click = null;
-    for(i=0; i<inputArray.length; i) {
+    for(i=0; i<inputArray.length;) {
         console.log(i);
         var x = parseFloat(inputArray[i]);
         console.log('x= '+x);
