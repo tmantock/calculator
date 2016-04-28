@@ -113,7 +113,30 @@ h3  {
     text-align: center;
 }
 
-.expand {
-
+.expansion {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: red;
+    position: absolute;
+    top: 3%;
+    right: 1%;
 }
 
+.screenGrow {
+    transition: width .25s;
+}
+
+.tipColumn {
+    padding: 0 !important;
+    background: #67809F;
+    color: white;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.tipColumn div {
+    border: 1px solid black;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
