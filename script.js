@@ -26,37 +26,59 @@ $(document).ready(function () {
 });
 
 var inputArray = [];
+var inputArrayStorage = [];
 var buttonClick = null;
+var operatorClick = null;
+var equateClick = null;
+var decimalClick = null;
 var firstNumber = '';
 var subsequentNumber = '';
 
 function digit_input_one (value) {
     if (buttonClick == null) {
-        var numberRetriever = $(value).children('h3');
-        subsequentNumber = numberRetriever.html();
+        var numberRetriever = $(value).children('h3').html();
+
+        if(numberRetriever == '.' && decimalClick == null) {
+            subsequentNumber = numberRetriever;
+            decimalClick = false;
+        }
+
+        else if (numberRetriever != '.') {
+        subsequentNumber = numberRetriever;
+        }
         console.log('Subsequent Number is: ' + subsequentNumber);
+        operatorClick = true;
     }
 
     firstNumber += subsequentNumber;
+    subsequentNumber = '';
     $('.output').html(firstNumber);
     console.log(firstNumber);
+    equateClick = true;
 }
 
 function operate (value) {
-    if (inputArray.length<3) {
-    var getOperator = $(value).children('h3');
-    var operator = $(getOperator).html();
-    var screenOutput = $('.output').html();
-    inputArray.push(screenOutput,operator);
-    console.log(inputArray);
-    firstNumber = '';
-    subsequentNumber = '';
+    if (inputArray.length<3 && operatorClick == true) {
+        var getOperator = $(value).children('h3');
+        var operator = $(getOperator).html();
+        var screenOutput = $('.output').html();
+        if(inputArray[1] == '+' || inputArray[1] == '*' || inputArray[1] == '/' || inputArray[1] == '-') {
+            inputArray.splice(1,1);
+            inputArrayStorage.splice(1,1);
+        }
+        inputArray.push(screenOutput,operator);
+        inputArrayStorage.push(screenOutput,operator);
+        firstNumber = '';
+        subsequentNumber = '';
+        decimalClick = null;
+        console.log(inputArray);
     }
 }
 
 function equate () {
     var screenOutput = $('.output').html();
     inputArray.push(screenOutput);
+    inputArrayStorage.push(screenOutput);
     console.log(inputArray);
     var result;
     var i;
@@ -66,6 +88,69 @@ function equate () {
         result = "Error";
         $('.output').html(result);
     }
+
+    else if (equateClick == null) {
+        result = 'Ready!';
+    }
+
+    else if (inputArray.length <= 1) {
+        result = inputArray[0];
+    }
+
+    else if (inputArray <= 2) {
+        inputArray.push(inputArray[0]);
+        for (i = 0; i < inputArray.length;) {
+            console.log(i);
+            var x = parseFloat(inputArray[i]);
+            console.log('x= ' + x);
+            var y = parseFloat(inputArray[i += 2]);
+            console.log('y= ' + y);
+            console.log('loop: ', inputArray);
+            console.log(inputArray[1]);
+            i--;
+
+            switch (String(inputArray[i])) {
+                case '+':
+                    result = x + y;
+                    inputArray.splice(0, 3, result);
+                    //var decimalSum = String(result);
+                    console.log('sum: ' + result);
+                    console.log('Array: ' + inputArray);
+                    i = 0;
+                    break;
+
+                case '-':
+                    result = x - y;
+                    inputArray.splice(0, 3, result);
+                    //var decimalSub = String(result);
+                    console.log('sub: ' + result);
+                    console.log('Array: ' + inputArray);
+                    i = 0;
+                    break;
+
+                case '*':
+                    result = x * y;
+                    inputArray.splice(0, 3, result);
+                    //var decimalMult = String(result);
+                    console.log('mult: ' + result);
+                    console.log('Array: ' + inputArray);
+                    i = 0;
+                    break;
+
+                case '/':
+                    result = x / y;
+                    inputArray.splice(0, 3, result);
+                    //var decimalDiv = String(result);
+                    console.log('division: ' + result);
+                    console.log('Array: ' + inputArray);
+                    i = 0;
+                    break;
+            }
+
+        }
+
+    }
+
     else {
 
         for (i = 0; i < inputArray.length;) {
@@ -118,9 +203,11 @@ function equate () {
 
         }
 
-        $('.output').html(result);
-        inputArray = [];
+
     }
+    $('.output').html(result);
+    inputArray = [];
+    console.log(inputArrayStorage);
 }
 
 //Tip Calc test//
@@ -186,9 +273,13 @@ function tipCalc (value) {
 
 function clearScreen () {
     $('.output').html('');
-    firstNumber='';
-    subsequentNumber = '';
     inputArray = [];
+    inputArrayStorage = [];
+    buttonClick = null;
+    operatorClick = null;
+    equateClick = null;
+    decimalClick = null;
+    firstNumber = '';
     console.log('clear');
 }
 
