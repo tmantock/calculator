@@ -26,13 +26,14 @@ $(document).ready(function () {
 });
 
 var inputArray = [];
-var inputArrayStorage = [];
+var inputStorageArray = [];
 var buttonClick = null;
 var operatorClick = null;
 var equateClick = null;
 var decimalClick = null;
 var firstNumber = '';
 var subsequentNumber = '';
+var x = 3;
 
 function digit_input_one (value) {
     if (buttonClick == null) {
@@ -58,16 +59,12 @@ function digit_input_one (value) {
 }
 
 function operate (value) {
-    if (inputArray.length<3 && operatorClick == true) {
+    if (operatorClick == true) {
+        var screenOutput = $('.output').html();
         var getOperator = $(value).children('h3');
         var operator = $(getOperator).html();
-        var screenOutput = $('.output').html();
-        if(inputArray[1] == '+' || inputArray[1] == '*' || inputArray[1] == '/' || inputArray[1] == '-') {
-            inputArray.splice(1,1);
-            inputArrayStorage.splice(1,1);
-        }
         inputArray.push(screenOutput,operator);
-        inputArrayStorage.push(screenOutput,operator);
+        inputStorageArray.push(screenOutput,operator);
         firstNumber = '';
         subsequentNumber = '';
         decimalClick = null;
@@ -78,12 +75,18 @@ function operate (value) {
 function equate () {
     var screenOutput = $('.output').html();
     inputArray.push(screenOutput);
-    inputArrayStorage.push(screenOutput);
+    inputStorageArray.push(screenOutput);
     console.log(inputArray);
     var result;
     var i;
     firstNumber = '';
     subsequentNumber = '';
+
+    if (inputArray[1] == '+' | '*' | '/' | '-' && inputArray[2] == '+' | '*' | '/' | '-') {
+        inputArray.splice(1, inputArray.length-3);
+        console.log(inputArray);
+    }
+
     if (inputArray[1]=='/' && inputArray[2]=='0') {
         result = "Error";
         $('.output').html(result);
@@ -94,7 +97,7 @@ function equate () {
     }
 
     else if (inputArray.length <= 1) {
-        result = inputArray[0];
+        result = $('.output').html();
     }
 
     else if (inputArray <= 2) {
@@ -207,7 +210,7 @@ function equate () {
     }
     $('.output').html(result);
     inputArray = [];
-    console.log(inputArrayStorage);
+
 }
 
 //Tip Calc test//
@@ -274,13 +277,19 @@ function tipCalc (value) {
 function clearScreen () {
     $('.output').html('');
     inputArray = [];
-    inputArrayStorage = [];
     buttonClick = null;
     operatorClick = null;
     equateClick = null;
     decimalClick = null;
     firstNumber = '';
     console.log('clear');
+}
+
+function clearLastEntry () {
+    inputArray.splice(inputArray.length-1,1);
+    console.log('Entry Cleared: ' + inputArray);
+    firstNumber = '';
+    subsequentNumber = '';
 }
 
 //if (decimalDiv.length > 6) {
