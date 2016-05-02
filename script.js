@@ -31,77 +31,100 @@ var buttonClick = null;
 var operatorClick = null;
 var equateClick = null;
 var decimalClick = null;
-var firstNumber = '';
-var subsequentNumber = '';
+var operand = '';
+var number = '';
 var x = 3;
 
+//function to grab number
 function digit_input_one (value) {
+    //conditional to allow number click
     if (buttonClick == null) {
+        //get number value from html element
         var numberRetriever = $(value).children('h3').html();
-
+        //differentiate between a decimal. If decimal has been clicked during forst operand then no other decimals will be allowed
         if(numberRetriever == '.' && decimalClick == null) {
-            subsequentNumber = numberRetriever;
+            number = numberRetriever;
+            //sets decimal conditional to be false
             decimalClick = false;
         }
-
+        //conditional to allow all  html elements besides decimals top be logged
         else if (numberRetriever != '.') {
-        subsequentNumber = numberRetriever;
+        number = numberRetriever;
         }
-        console.log('Subsequent Number is: ' + subsequentNumber);
+        console.log('Subsequent Number is: ' + number);
+        //Once the first number has been enetered the operators may be clicked
         operatorClick = true;
     }
-
-    firstNumber += subsequentNumber;
-    subsequentNumber = '';
-    $('.output').html(firstNumber);
-    console.log(firstNumber);
+    //empty operand value set to add on the the number value for every click
+    operand += number;
+    //reset the number value
+    number = '';
+    //show the operand value on the screen
+    $('.output').html(operand);
+    console.log(operand);
+    //allow operator buttons to be clicked
     equateClick = true;
 }
 
 function operate (value) {
+    //conditional to allow operators to be clicked
     if (operatorClick == true) {
+        //set variable for grabbing value from the screen
         var screenOutput = $('.output').html();
+        //variable for grabil the operator value form the html element
         var getOperator = $(value).children('h3');
         var operator = $(getOperator).html();
+        //push the value from teh screen to the inputArray & storage Array
         inputArray.push(screenOutput,operator);
         inputStorageArray.push(screenOutput,operator);
-        firstNumber = '';
-        subsequentNumber = '';
+        //Reste operator & number variables
+        operand = '';
+        number = '';
+        //Allow decimals to be clicked again
         decimalClick = null;
         console.log(inputArray);
     }
 }
 
 function equate () {
+    //variable for grabbing value from the screen
     var screenOutput = $('.output').html();
+    //push the input value to the inputArray & storageArray
     inputArray.push(screenOutput);
     inputStorageArray.push(screenOutput);
     console.log(inputArray);
+    //declare variable for the result
     var result;
+    //declare variiable for the for loops
     var i;
-    firstNumber = '';
-    subsequentNumber = '';
-
+    //clear operand and operators
+    operand = '';
+    number = '';
+//conditional for getting rid of multiple successive operators
     if (inputArray[1] == '+' | '*' | '/' | '-' && inputArray[2] == '+' | '*' | '/' | '-') {
         inputArray.splice(1, inputArray.length-3);
         console.log(inputArray);
     }
+    //conditional for the result of dividing by 0
 
     if (inputArray[1]=='/' && inputArray[2]=='0') {
         result = "Error";
         $('.output').html(result);
     }
-
+//conditional for showing Ready on the screen if no inputs have been added
     else if (equateClick == null) {
         result = 'Ready!';
     }
+        //conditional for logging the previous input if there is only one input
 
     else if (inputArray.length <= 1) {
         result = $('.output').html();
     }
-
+//conditional for allowing shorthand functions i.e 3*= 9
     else if (inputArray <= 2) {
+        //push the first index so it can be the second operand
         inputArray.push(inputArray[0]);
+        //for loop for moving through the array
         for (i = 0; i < inputArray.length;) {
             console.log(i);
             var x = parseFloat(inputArray[i]);
@@ -115,6 +138,7 @@ function equate () {
             switch (String(inputArray[i])) {
                 case '+':
                     result = x + y;
+                    //splice the first three indexes in the array to allow the values to deleted once they have been worked through and replacing them with the result so successive operation can take place
                     inputArray.splice(0, 3, result);
                     //var decimalSum = String(result);
                     console.log('sum: ' + result);
@@ -153,9 +177,9 @@ function equate () {
         }
 
     }
-
+//conditional for allowing general mathematical operations
     else {
-
+    //for loop for moving through the array
         for (i = 0; i < inputArray.length;) {
             console.log(i);
             var x = parseFloat(inputArray[i]);
@@ -169,6 +193,7 @@ function equate () {
             switch (String(inputArray[i])) {
                 case '+':
                     result = x + y;
+                    //splice the first three indexes in the array to allow the values to deleted once they have been worked through and replacing them with the result so successive operation can take place
                     inputArray.splice(0, 3, result);
                     //var decimalSum = String(result);
                     console.log('sum: ' + result);
@@ -208,7 +233,9 @@ function equate () {
 
 
     }
+    //print the result to the screen
     $('.output').html(result);
+    //clear the input array
     inputArray = [];
 
 }
@@ -274,6 +301,7 @@ function tipCalc (value) {
     // *********** LF End
 }
 
+//function to clear the screen and reset all variables
 function clearScreen () {
     $('.output').html('');
     inputArray = [];
@@ -281,15 +309,16 @@ function clearScreen () {
     operatorClick = null;
     equateClick = null;
     decimalClick = null;
-    firstNumber = '';
+    operand = '';
     console.log('clear');
 }
 
+//function to erase the last entry/operand in the array
 function clearLastEntry () {
     inputArray.splice(inputArray.length-1,1);
     console.log('Entry Cleared: ' + inputArray);
-    firstNumber = '';
-    subsequentNumber = '';
+    operand = '';
+    number = '';
 }
 
 //if (decimalDiv.length > 6) {
