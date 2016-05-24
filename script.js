@@ -2,26 +2,26 @@
  * Created by Mantock on 4/25/16.
  */
 $(document).ready(function () {
-    $('.button').click(function () {
-        $(this).addClass('circle');
-        setTimeout(function () {
-            $('.button').removeClass('circle');
-        },200);
-    });
-
-    $('.clear').click(function () {
-        $(this).addClass('darkOrange');
-        setTimeout(function () {
-            $('.clear').removeClass('darkOrange');
-        },200);
-    });
-
-    $('.operator').click(function () {
-        $(this).addClass('whitePress');
-        setTimeout(function () {
-            $('.operator').removeClass('whitePress');
-        },200);
-    });
+    // $('.button').click(function () {
+    //     $(this).addClass('circle');
+    //     setTimeout(function () {
+    //         $('.button').removeClass('circle');
+    //     },200);
+    // });
+    //
+    // $('.clear').click(function () {
+    //     $(this).addClass('darkOrange');
+    //     setTimeout(function () {
+    //         $('.clear').removeClass('darkOrange');
+    //     },200);
+    // });
+    //
+    // $('.operator').click(function () {
+    //     $(this).addClass('whitePress');
+    //     setTimeout(function () {
+    //         $('.operator').removeClass('whitePress');
+    //     },200);
+    // });
 
 });
 
