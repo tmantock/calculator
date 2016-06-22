@@ -1,30 +1,3 @@
-/**
- * Created by Mantock on 4/25/16.
- */
-$(document).ready(function () {
-    // $('.button').click(function () {
-    //     $(this).addClass('circle');
-    //     setTimeout(function () {
-    //         $('.button').removeClass('circle');
-    //     },200);
-    // });
-    //
-    // $('.clear').click(function () {
-    //     $(this).addClass('darkOrange');
-    //     setTimeout(function () {
-    //         $('.clear').removeClass('darkOrange');
-    //     },200);
-    // });
-    //
-    // $('.operator').click(function () {
-    //     $(this).addClass('whitePress');
-    //     setTimeout(function () {
-    //         $('.operator').removeClass('whitePress');
-    //     },200);
-    // });
-
-});
-
 var inputArray = [];
 var inputStorageArray = [];
 var buttonClick = null;
@@ -38,11 +11,11 @@ var x = 3;
 //function to grab number
 function digit_input_one (value) {
     //conditional to allow number click
-    if (buttonClick == null) {
+    if (buttonClick === null) {
         //get number value from html element
         var numberRetriever = $(value).children('h3').html();
         //differentiate between a decimal. If decimal has been clicked during forst operand then no other decimals will be allowed
-        if(numberRetriever == '.' && decimalClick == null) {
+        if(numberRetriever === '.' && decimalClick === null) {
             number = numberRetriever;
             //sets decimal conditional to be false
             decimalClick = false;
@@ -68,10 +41,10 @@ function digit_input_one (value) {
 
 function operate (value) {
     //conditional to allow operators to be clicked
-    if (operatorClick == true) {
+    if (operatorClick === true) {
         //set variable for grabbing value from the screen
         var screenOutput = $('.output').html();
-        //variable for grabil the operator value form the html element
+        //variable for grab the operator value form the html element
         var getOperator = $(value).children('h3');
         var operator = $(getOperator).html();
         //push the value from teh screen to the inputArray & storage Array
@@ -112,7 +85,7 @@ function equate () {
         $('.output').html(result);
     }
 //conditional for showing Ready on the screen if no inputs have been added
-    else if (equateClick == null) {
+    else if (equateClick === null) {
         result = 'Ready!';
     }
         //conditional for logging the previous input if there is only one input
@@ -182,17 +155,17 @@ function equate () {
     //for loop for moving through the array
         for (i = 0; i < inputArray.length;) {
             console.log(i);
-            var x = parseFloat(inputArray[i]);
-            console.log('x= ' + x);
-            var y = parseFloat(inputArray[i += 2]);
-            console.log('y= ' + y);
+            var z = parseFloat(inputArray[i]);
+            console.log('x= ' + z);
+            var w = parseFloat(inputArray[i += 2]);
+            console.log('y= ' + w);
             console.log('loop: ', inputArray);
             console.log(inputArray[1]);
             i--;
 
             switch (String(inputArray[i])) {
                 case '+':
-                    result = x + y;
+                    result = z + w;
                     //splice the first three indexes in the array to allow the values to deleted once they have been worked through and replacing them with the result so successive operation can take place
                     inputArray.splice(0, 3, result);
                     //var decimalSum = String(result);
@@ -202,7 +175,7 @@ function equate () {
                     break;
 
                 case '-':
-                    result = x - y;
+                    result = z - w;
                     inputArray.splice(0, 3, result);
                     //var decimalSub = String(result);
                     console.log('sub: ' + result);
@@ -211,7 +184,7 @@ function equate () {
                     break;
 
                 case '*':
-                    result = x * y;
+                    result = z * w;
                     inputArray.splice(0, 3, result);
                     //var decimalMult = String(result);
                     console.log('mult: ' + result);
@@ -220,7 +193,7 @@ function equate () {
                     break;
 
                 case '/':
-                    result = x / y;
+                    result = z / w;
                     inputArray.splice(0, 3, result);
                     //var decimalDiv = String(result);
                     console.log('division: ' + result);
@@ -259,18 +232,9 @@ function tipCalculator () {
     $('.calcBody').append(newColumn);
 }
 
-//function hideCalc () {
-//    $('.calculatorContainer').css('width','30vw');
-//    $('.numericalContainer').removeClass('col-sm-8').addClass('col-sm-9');
-//    $('.operatorContainer').removeClass('col-sm-2').addClass('col-sm-3');
-//    $('.newColumn').remove();
-//    $('.expansion').prop('onclick',null).off('click').attr('click',"tipCalculator()");
-//}
 
 //Tip Calc Test//
-//**Warning**Calculator can only expand once and cannot hide
 function tipCalc (value) {
-    // ********** LF Start
     //variable set to retrieve the value of the tip button clicked Cheap/Meh/Wow!
     var tipRetriever = $(value).children('h3');
     //Grab the number on the DOM (output/screen). Would be more effective to grab from global variable for logging in numbers
@@ -297,8 +261,6 @@ function tipCalc (value) {
     var tip = result.toFixed(2);
     //Display the tip amount with a dollar sign to the DOM (screen)
     $('.output').html('$' + tip);
-
-    // *********** LF End
 }
 
 //function to clear the screen and reset all variables
@@ -320,10 +282,3 @@ function clearLastEntry () {
     operand = '';
     number = '';
 }
-
-//if (decimalDiv.length > 6) {
-//    var decimalFloatDiv = parseFloat(decimalDiv);
-//    var decimalFixedDiv = decimalFloatDiv.toFixed(6);
-//    result = decimalFixedDiv;
-//}
-//

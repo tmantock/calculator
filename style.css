@@ -1,87 +1,143 @@
-body {
-    font-family: Calibri;
-}
-#container {
-    position: relative;
-    height: 600px;
-    width: 400px;
-    border-radius: 15px;
-    background-color: black;
+#page {
+  height: 100vh;
+  width: 100vw;
 }
 
-#top-part {
-    display: block;
+.buffer {
+  height: 100%;
+}
+.calculatorContainer {
+  position: relative;
+  top: 35%;
+  transform: translateY(-35%);
+  height: 80%;
+  font-family: 'Roboto', sans-serif;
+}
+.calculator {
+    height: 100%;
     width: 100%;
+    border: 1px solid #000000;
+}
+
+.screen-container {
     height: 20%;
+    padding: 0 !important;
 }
 
-#screen {
+.screen {
+    height: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.output {
     position: relative;
-    left: 7%;
-    top: 15%;
-    width: 86%;
+    top: 45%;
+    left: 20%;
+    transform: translateY(-45%);
+}
+
+.calcBody {
     height: 80%;
-    background-color: white;
-    border-radius: 15px;
+    margin: 0;
+    padding: 0 !important;
+    background: #913D88;
 }
 
-#bot-part {
-    display: block;
-    padding: 2%;
-    width: 96%;
-    height: 76%;
+.numericalContainer {
+    height: 100%;
+    padding: 0 !important;
 }
 
-#clear-all, #clear-entry,
-#zero, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine,
-#decimal, #equals, #add, #subtract, #multiply, #divide {
-    position: relative;
-    display: inline-block;
-    height: 18.2%;
+.calcRowOne,
+.calcRowTwo,
+.calcRowThree,
+.calcRowFour,
+.calcRowFive,
+.calcRowSix {
+    height: 20%;
+    padding: 0 !important;
+}
+
+.calcRowOne {
+    background: #F89406;
+}
+
+.darkOrange {
+    background: #D35400;
+}
+
+.clear,
+.button {
+    height: 100%;
+    border: .001em solid #000000;
     text-align: center;
-    margin: 1.2% .6%;
-    border-radius: 15px;
-    font-size: 65px;
-    border-style: none;
+    transition: all .1s;
+    color: #ffffff;
 }
 
-#clear-all:focus, #clear-entry:focus,
-#zero:focus, #one:focus, #two:focus, #three:focus, #four:focus,
-#five:focus, #six:focus, #seven:focus, #eight:focus, #nine:focus,
-#decimal:focus, #equals:focus, #add:focus, #subtract:focus, #multiply:focus, #divide:focus {
-    outline: none;
+.text {
+  position: relative;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%,-25%);
 }
 
-#clear-all, #clear-entry {
-    width: 48%;
-    background-color: #1d78e1;
+.operatorContainer {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 !important;
+    background: #2C3E50;
+    color: #ffffff;
 }
 
-#clear-all:hover, #clear-entry:hover {
-    background-color: dodgerblue;
-    cursor: pointer;
+.operator {
+    text-align: center;
+    height: 20%;
+    box-sizing: border-box;
+    border: 1px solid black;
 }
 
-#zero, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine,
-#decimal, #equals, #add, #subtract, #multiply, #divide {
-    width: 23%;
+.whitePress {
+    background: #D2D7D3;
+    color: black;
 }
 
-#zero, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine {
-    background-color: darkorange;
+.circle {
+    border-radius: 50%;
+    background: #F89406;
+    color: #000000;
 }
 
-#zero:hover, #one:hover, #two:hover, #three:hover, #four:hover,
-#five:hover, #six:hover, #seven:hover, #eight:hover, #nine:hover {
-    background-color: orange;
-    cursor: pointer;
+.square {
+    border-radius: 0%;
 }
 
-#decimal, #equals, #add, #subtract, #multiply, #divide {
-    background-color: #e13800;
+h3  {
+    text-align: center;
 }
 
-#decimal:hover, #equals:hover, #add:hover, #subtract:hover, #multiply:hover, #divide:hover {
-    background-color: orangered;
-    cursor: pointer;
+.currency-container {
+  height: 7%;
+}
+
+@media screen and (max-width: 375px) {
+  .calculatorContainer {
+    height: 75%;
+  }
+
+  h3 {
+    font-size: 5em;
+
+  }
+
+  .currency-container {
+    padding-top: 3%;
+  }
+
+  .form-control {
+    height: 100%;
+    font-size: 2em;
+  }
 }

@@ -2,35 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
     <title>Calculator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <!-- jQuery -->
+    <script src ="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.9/css/bootstrap-material-design.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.9/css/ripples.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!--Begin Fonts for document-->
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+    <link href = "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel = "stylesheet" type = "text/css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!-- Calculator Logic -->
+    <!-- <script src="js/script.js"></script> -->
+    <!--Personal Stylesheet-->
+    <link href = "style.css" rel = "stylesheet" type = "text/css">
 </head>
-<body>
-    <div id="container">
-        <div id="top-part">
-            <div id="screen"></div>
-        </div>
-        <div id="bot-part">
-            <button id="clear-all">C</button>
-            <button id="clear-entry">CE</button>
-            <button id="seven">7</button>
-            <button id="eight">8</button>
-            <button id="nine">9</button>
-            <button id="divide">%</button>
-            <button id="four">4</button>
-            <button id="five">5</button>
-            <button id="six">6</button>
-            <button id="multiply">x</button>
-            <button id="one">1</button>
-            <button id="two">2</button>
-            <button id="three">3</button>
-            <button id="subtract">-</button>
-            <button id="zero">0</button>
-            <button id="decimal">.</button>
-            <button id="equals">=</button>
-            <button id="add">+</button>
+<body ng-app="calculatorApp">
+  <div id="page">
+    <div class = "buffer col-lg-4 col-md-4 hidden-xs"></div>
+    <div class = "calculatorContainer col-lg-4 col-md-4 col-xs-12" ng-controller="calculatorController as cc">
+        <div class = "calculator">
+            <div class = "screen-container col-sm-12">
+                <div class = "screen"><h1 ng-model="cc.output" class = "output">{{ cc.output }}</h1></div>
+            </div>
+            <div class="currency-container col-sm-12 col-xs-12">
+              <div class="currency-menu col-sm-6 col-xs-6">
+                <select class="form-control" ng-model="cc.selectedBase">
+                  <option ng-repeat="currency in cc.basecurrencies">{{ currency }}</option>
+                </select>
+              </div>
+              <div class="currency-menu col-sm-6 col-xs-6">
+                <select class="form-control" ng-model="cc.selectedConvert" ng-change="cc.getRate()">
+                  <option ng-repeat="currency in cc.selectcurrencies">{{ currency }}</option>
+                </select>
+              </div>
+            </div>
+            <div class = "calcBody col-sm-12 col-xs-12">
+                <div class = "numericalContainer col-xs-9 col-sm-9">
+                    <div class = "calcRowOne col-sm-12 col-xs-12">
+                        <div class = "clear col-sm-4 col-xs-4" ng-click="cc.clearEntry()"><div class="text"><h3>CE</h3></div></div>
+                        <div class = "clear col-sm-8 col-xs-8" ng-click="cc.clearAll()"><div class="text"><h3>A/C</h3></div></div>
+                    </div>
+                    <div class = "calcRowTwo col-sm-12 col-xs-12">
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(1)"><div class="text"><h3>1</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(2)"><div class="text"><h3>2</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(3)"><div class="text"><h3>3</h3></div></div>
+                    </div>
+                    <div class = "calcRowThree col-sm-12 col-xs-12">
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(4)"><div class="text"><h3>4</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(5)"><div class="text"><h3>5</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(6)"><div class="text"><h3>6</h3></div></div>
+                    </div>
+                    <div class = "calcRowFour col-sm-12 col-xs-12">
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(7)"><div class="text"><h3>7</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(8)"><div class="text"><h3>8</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit(9)"><div class="text"><h3>9</h3></div></div>
+                    </div>
+                    <div class = "calcRowFive col-sm-12">
+                        <div class = "button col-sm-8 col-xs-8" ng-click="cc.updateDigit(0)"><div class="text"><h3>0</h3></div></div>
+                        <div class = "button col-sm-4 col-xs-4" ng-click="cc.updateDigit('.')"><div class="text"><h3>.</h3></div></div>
+                    </div>
+                </div>
+                <div class = "operatorContainer col-sm-3 col-xs-3">
+                    <div class = "operator col-sm-12 col-xs-12" ng-click="cc.operand('/')"><div class="text"><h3>/</h3></div></div>
+                    <div  class = "operator col-sm-12 col-xs-12" ng-click="cc.operand('*')"><div class="text"><h3>x</h3></div></div>
+                    <div class = "operator col-sm-12 col-xs-12" ng-click="cc.operand('-')"><div class="text"><h3>-</h3></div></div>
+                    <div class = "operator col-sm-12 col-xs-12" ng-click="cc.operand('+')"><div class="text"><h3>+</h3></div></div>
+                    <div class = "operator col-sm-12 col-xs-12" ng-click="cc.equate()"><div class="text"><h3>=</h3></div></div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class = "buffer col-lg-4 col-md-4 hidden-xs"></div>
+  </div>
+    <!-- Angular App -->
+    <script src="js/app.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/calculatorController.js"></script>
+    <!-- Services -->
+    <script src="js/services/getcurrency.js"></script>
+    <!-- Material bootstrap scripts -->
+    <script src="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.9/js/ripples.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.9/js/material.min.js"></script>
+    <script>
+        $.material.ripples(".button, .operator, .clear");
+    </script>
 </body>
 </html>
