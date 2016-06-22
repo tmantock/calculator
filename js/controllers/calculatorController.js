@@ -1,12 +1,14 @@
 app.controller("calculatorController", ["getCurrency",function(getCurrency) {
     var self = this;
+    self.showCurrencyButton = false;
     self.basecurrencies = ["Base Currency","USD","AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","GBP","HKD","HRK","HUF","IDR","ILS","INR","JPY","KRW","MXN","MYR","NOK","NZD","PHP","PLN","RON","RUB","SEK","SGD","THB","TRY","ZAR","EUR"];
-    self.selectcurrencies = ["Converted Currency","USD","AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","GBP","HKD","HRK","HUF","IDR","ILS","INR","JPY","KRW","MXN","MYR","NOK","NZD","PHP","PLN","RON","RUB","SEK","SGD","THB","TRY","ZAR","EUR"];
+    self.selectcurrencies = ["Converted Currency","EUR","USD","AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","GBP","HKD","HRK","HUF","IDR","ILS","INR","JPY","KRW","MXN","MYR","NOK","NZD","PHP","PLN","RON","RUB","SEK","SGD","THB","TRY","ZAR"];
     self.selectedBase = self.basecurrencies[0];
     self.selectedConvert = self.selectcurrencies[0];
     self.exchangeRate = '';
     self.output = '';
     self.digit = '';
+    self.equalClick = false;
     self.equation = [];
 
     self.getRate = function (currency) {
@@ -23,8 +25,9 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
     };
 
     self.updateDigit = function (number) {
-      if(parseInt(self.output) === 0 && number != '.' || self.output == "Ready when you are!"){
+      if(parseInt(self.output) === 0 && number != '.' || self.output == "Ready when you are!" || self.equalClick === true){
         self.output = '';
+        self.equalClick = false;
       }
       self.digit += String(number);
       self.output += String(number);
@@ -40,6 +43,7 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
         self.digit = '';
         self.output += (' ' + String(operand) + ' ');
       }
+      self.equalClick = false;
     };
 
     self.equate = function () {
@@ -72,13 +76,16 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
         self.equation.splice(0,3,result);
       }
     }
+      self.equalClick = true;
       self.equation = [];
       self.output = result;
       return result;
     };
 
     self.calculate = function () {
-      var output = self.digit * self.exchangeRate;
+      self.output = self.digit * self.exchangeRate;
+      self.equalClick = true;
+      self.showCurrencyButton = false;
       console.log("Rate is"+output);
     };
 
