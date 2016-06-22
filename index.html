@@ -32,8 +32,8 @@
             <div class="buffer col-lg-4 col-md-4 hidden-xs"></div>
             <div class="calculatorContainer col-lg-4 col-md-4 col-xs-12" ng-controller="calculatorController as cc">
                 <div class="calculator">
-                    <div class="screen-container col-sm-12">
-                        <div class="screen">
+                    <div class="screen-container col-sm-12 col-xs-12">
+                        <div class="screen col-sm-12 col-xs-12">
                             <h1 ng-model="cc.output" class="output">{{ cc.output }}</h1>
                         </div>
                     </div>
@@ -64,63 +64,63 @@
                                 </div>
                             </div>
                             <div class="calcRowTwo col-sm-12 col-xs-12">
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(1)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(1)">
                                     <div class="text">
                                         <h3>1</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(2)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(2)">
                                     <div class="text">
                                         <h3>2</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(3)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(3)">
                                     <div class="text">
                                         <h3>3</h3>
                                     </div>
                                 </div>
                             </div>
-                            <div class="calcRowThree col-sm-12 col-xs-12">
+                            <div class="calcRowThree digit col-sm-12 col-xs-12">
                                 <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(4)">
                                     <div class="text">
                                         <h3>4</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(5)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(5)">
                                     <div class="text">
                                         <h3>5</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(6)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(6)">
                                     <div class="text">
                                         <h3>6</h3>
                                     </div>
                                 </div>
                             </div>
-                            <div class="calcRowFour col-sm-12 col-xs-12">
+                            <div class="calcRowFour digit col-sm-12 col-xs-12">
                                 <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(7)">
                                     <div class="text">
                                         <h3>7</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(8)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(8)">
                                     <div class="text">
                                         <h3>8</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit(9)">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit(9)">
                                     <div class="text">
                                         <h3>9</h3>
                                     </div>
                                 </div>
                             </div>
-                            <div class="calcRowFive col-sm-12 col-xs-12">
+                            <div class="calcRowFive digit col-sm-12 col-xs-12">
                                 <div class="button col-sm-8 col-xs-8" ng-click="cc.updateDigit(0)">
                                     <div class="text">
                                         <h3>0</h3>
                                     </div>
                                 </div>
-                                <div class="button col-sm-4 col-xs-4" ng-click="cc.updateDigit('.')">
+                                <div class="button digit col-sm-4 col-xs-4" ng-click="cc.updateDigit('.')">
                                     <div class="text">
                                         <h3>.</h3>
                                     </div>

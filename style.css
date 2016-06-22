@@ -16,7 +16,7 @@
 .calculator {
     height: 100%;
     width: 100%;
-    border: 1px solid #000000;
+    /*border: 1px solid #000000;*/
 }
 
 .screen-container {
@@ -26,7 +26,7 @@
 
 .screen {
     height: 100%;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     box-sizing: border-box;
     background: #ffffff;
 }
@@ -71,11 +71,14 @@
 .clear,
 .button {
     height: 100%;
-    border: .001em solid #000000;
     text-align: center;
     transition: all .1s;
     color: #ffffff;
 }
+
+/*.digit {
+  border: 1px solid rgb(145,61,100)
+}*/
 
 .text {
   position: relative;
@@ -96,7 +99,7 @@
     text-align: center;
     height: 20%;
     box-sizing: border-box;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .whitePress {
@@ -119,7 +122,9 @@ h3  {
 }
 
 .currency-container {
-  height: 7%;
+  height: 10%;
+  background: #ffffff;
+  border-top: 1px solid #D2D7D3;
 }
 
 @media screen and (max-width: 375px) {
