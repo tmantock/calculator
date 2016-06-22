@@ -65,10 +65,10 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
           case '-':
             result = x - y;
             break;
-          case '*':
+          case '×':
             result = x * y;
             break;
-          case '/':
+          case '÷':
             result = x / y;
             break;
         }
@@ -82,7 +82,7 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
     };
 
     self.calculate = function () {
-      self.output = self.digit * self.exchangeRate;
+      self.output = (self.digit * self.exchangeRate).toFixed(2);
       self.digit = '';
       self.equalClick = true;
       console.log("Rate is"+output);
