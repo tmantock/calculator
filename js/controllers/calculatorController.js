@@ -1,6 +1,5 @@
 app.controller("calculatorController", ["getCurrency",function(getCurrency) {
     var self = this;
-    self.showCurrencyButton = false;
     self.basecurrencies = ["Base Currency","USD","AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","GBP","HKD","HRK","HUF","IDR","ILS","INR","JPY","KRW","MXN","MYR","NOK","NZD","PHP","PLN","RON","RUB","SEK","SGD","THB","TRY","ZAR","EUR"];
     self.selectcurrencies = ["Converted Currency","EUR","USD","AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","GBP","HKD","HRK","HUF","IDR","ILS","INR","JPY","KRW","MXN","MYR","NOK","NZD","PHP","PLN","RON","RUB","SEK","SGD","THB","TRY","ZAR"];
     self.selectedBase = self.basecurrencies[0];
@@ -84,8 +83,8 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
 
     self.calculate = function () {
       self.output = self.digit * self.exchangeRate;
+      self.digit = '';
       self.equalClick = true;
-      self.showCurrencyButton = false;
       console.log("Rate is"+output);
     };
 
@@ -100,5 +99,15 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
       self.digit = '';
       self.output = '';
       self.equation.splice(self.equation.length-1,1);
+    };
+
+    self.expandCurrency = function () {
+      var target = $("#currency");
+      if(target.height() === 0){
+        target.animate({height: '10%'},500);
+      }
+      else {
+        target.animate({height: '0'},500);
+      }
     };
 }]);

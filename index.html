@@ -32,19 +32,19 @@
             <div class="buffer col-lg-4 col-md-4 hidden-xs"></div>
             <div class="calculatorContainer col-lg-4 col-md-4 col-xs-12" ng-controller="calculatorController as cc">
                 <div class="calculator">
-                    <div class="screen-container col-sm-12 col-xs-12">
+                    <div class="screen-container col-sm-12 col-xs-12" ng-click="cc.expandCurrency(); showCurrencyButton = !showCurrencyButton">
                         <div class="screen col-sm-12 col-xs-12">
                             <h1 ng-model="cc.output" class="output">{{ cc.output }}</h1>
                         </div>
                     </div>
-                    <div class="currency-container col-sm-12 col-xs-12">
+                    <div id="currency" class="currency-container col-sm-12 col-xs-12">
                         <div class="currency-menu col-sm-6 col-xs-6">
                             <select class="form-control" ng-model="cc.selectedBase">
                                 <option ng-repeat="currency in cc.basecurrencies">{{ currency }}</option>
                             </select>
                         </div>
                         <div class="currency-menu col-sm-6 col-xs-6">
-                            <select class="form-control" ng-model="cc.selectedConvert" ng-change="cc.getRate(); cc.showCurrencyButton = !cc.showCurrencyButton">
+                            <select class="form-control" ng-model="cc.selectedConvert" ng-change="cc.getRate()">
                                 <option ng-repeat="currency in cc.selectcurrencies">{{ currency }}</option>
                             </select>
                         </div>
@@ -148,12 +148,12 @@
                                     <h3>+</h3>
                                 </div>
                             </div>
-                            <div ng-hide="cc.showCurrencyButton" class="operator col-sm-12 col-xs-12" ng-click="cc.equate()">
+                            <div ng-hide="showCurrencyButton" class="operator col-sm-12 col-xs-12" ng-click="cc.equate()">
                                 <div class="text">
                                     <h3>=</h3>
                                 </div>
                             </div>
-                            <div ng-show= "cc.showCurrencyButton" class="operator col-sm-12 col-xs-12" ng-click="cc.calculate()">
+                            <div ng-show= "showCurrencyButton" class="operator col-sm-12 col-xs-12" ng-click="cc.calculate()">
                                 <div class="text">
                                     <h3>=</h3>
                                 </div>
