@@ -83,6 +83,7 @@ app.controller("calculatorController", ["getCurrency",function(getCurrency) {
     };
 
     self.clearAll = function () {
+      console.log("obj");
       self.equation = [];
       self.output = '';
       self.digit = '';
