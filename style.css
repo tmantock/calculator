@@ -13,6 +13,7 @@
   height: 80%;
   font-family: 'Roboto', sans-serif;
   min-height: 500px;
+  min-width: 500px;
 }
 .calculator {
     height: 100%;
@@ -121,7 +122,7 @@
 h3  {
     text-align: center;
 }
-
+.metric-container,
 .currency-container {
   height: 0;
   background: #ffffff;
@@ -138,6 +139,7 @@ h3  {
 
   }
 
+  .metric-container,
   .currency-container {
     padding-top: 3%;
   }
