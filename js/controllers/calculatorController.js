@@ -3,23 +3,51 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.basecurrencies = ["Base Currency", "USD", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "ZAR", "EUR"];
     self.selectcurrencies = ["Converted Currency", "EUR", "USD", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "ZAR"];
     self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard", "pint", "quart", "gallon", "cup", "teaspoon", "tablespoon", "Farenheit"];
-    self.metricArray = [{
+    self.metricWholeArray = ["Metric Unit", "milimeter", "centimeter", "decimeter", "meter", "decameter", "hectometer", "kilometer", "mililiter", "centiliter", "deciliter", "liter", "decaliter", "hectoliter", "kiloliter", "Celcius"];
+    self.metricConversionArray = [{
         unit: "Metric Unit"
     }, {
         unit: "meter",
         inch: 39.3701,
         feet: 3.280841666667,
-        yard: 1.0936138888889999077
+        yard: 1.0936138888889999077,
+        mile: 0.000621371
     }, {
         unit: "liter",
         gallon: 0.264172,
         pint: 2.11338,
         cup: 4.22675,
         teaspoon: 202.884,
-        tablespoon: 67.628
+        tablespoon: 67.628,
+        quart: 1.05669
     }, {
         unit: "Celcius",
         farenheit: 32
+    }];
+    self.metricArray = [{
+        unit: "Metric Unit"
+    }];
+    self.prefixes = [{
+        prefix: "mili",
+        val: 0.001
+    }, {
+        prefix: "centi",
+        val: 0.01
+    }, {
+        prefix: 'deci',
+        val: 0.1
+    }, {
+        prefix: '',
+        val: 1
+    }, {
+        prefix: 'deca',
+        val: 10
+    }, {
+        prefix: 'hecto',
+        val: 100
+    }, {
+        prefix: 'kilo',
+        val: 1000
     }];
     self.selectedBase = self.basecurrencies[0];
     self.selectedConvert = self.selectcurrencies[0];
@@ -35,6 +63,8 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.alternates = false;
     self.metricButton = false;
     self.currencyButton = false;
+    self.baseMetricUnit = '';
+    self.metricSwitch = false;
 
     self.getRate = function(currency) {
         var base = self.selectedBase;
@@ -48,6 +78,36 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
             }
         });
         self.displayCurrency = convert;
+    };
+
+    self.changeMetric = function(boolean) {
+        var suffix;
+        if (boolean === 1 && self.metric == "milimeter" || self.metric == "centimeter" || self.metric == "decimeter" || self.metric == "meter" || self.metric == "decameter" || self.metric == "hectometer" || self.metric == "kilometer") {
+            self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard"];
+            self.baseMetricUnit = "meter";
+            suffix = "meter";
+        } else if (boolean === 1 && self.metric == "mililiter" || self.metric == "centiliter" || self.metric == "deciliter" || self.metric == "liter" || self.metric == "decaliter" || self.metric == "hectoliter" || self.metric == "kiloliter") {
+            self.imperialArray = ["Imperial Unit", "pint", "quart", "gallon", "cup", "teaspoon", "tablespoon"];
+            self.baseMetricUnit = "liter";
+            suffix = "liter";
+        }
+        if (boolean === 0 && self.imperial == 'inch' || self.imperial == 'feet' || self.imperial == 'yard' || self.imperial == 'mile') {
+            suffix = 'meter';
+            self.baseMetricUnit = 'meter';
+        } else if (boolean === 0 && self.imperial == 'pint' || self.imperial == 'quart' || self.imperial == 'gallon' || self.imperial == 'teaspoon' || self.imperial == 'tablespoon' || self.imperial == 'cup') {
+            suffix = 'liter';
+            self.baseMetricUnit = 'liter';
+        }
+        var array = ["Metric Unit"];
+        for (var i = 0; i < self.prefixes.length; i++) {
+            var obj = {};
+            var prefix = self.prefixes[i].prefix;
+            var metric = '' + prefix + suffix;
+            obj.unit = metric;
+            obj.val = self.prefixes[i].val;
+            array.push(obj);
+        }
+        self.metricArray = array;
     };
 
     self.updateDigit = function(number) {
@@ -114,21 +174,43 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.calculateMetric = function() {
-        var metricUnit = self.metric;
+      console.log(self.metric);
+        var metricUnit = self.baseMetricUnit;
         var imperialUnit = self.imperial;
         var digit = self.digit;
         var result;
-        for (var i = 0; i < self.metricArray.length; i++) {
-            if (metricUnit == self.metricArray[i].unit) {
-                for (var index in self.metricArray[i]) {
+        for (var i = 0; i < self.metricConversionArray.length; i++) {
+            if (metricUnit == self.metricConversionArray[i].unit) {
+                for (var index in self.metricConversionArray[i]) {
                     if (imperialUnit == index) {
-                        result = digit / self.metricArray[i][index];
+                        if (self.metricSwitch === false) {
+                            result = digit / self.metricConversionArray[i][index];
+                        } else if (self.metricSwitch === true) {
+                            result = digit * self.metricConversionArray[i][index];
+                        }
+                    }
+                }
+                for (var x = 0; x < self.metricArray.length; x++) {
+                    for (var val in self.metricArray[x]) {
+                        if (self.metric == self.metricArray[x][val]) {
+                            if (self.metricSwitch === false) {
+                                result = result / self.metricArray[x].val;
+                            } else if (self.metricSwitch === true) {
+                                result = result * self.metricArray[x].val;
+                            }
+                        }
                     }
                 }
             }
         }
         self.equalClick = true;
-        self.output = result.toFixed(4) + " " + metricUnit;
+        self.digit = '';
+        if (self.metricSwitch === false) {
+            self.output = result.toFixed(4) + " " + self.metric;
+        } else if (self.metricSwitch === true) {
+            self.output = result.toFixed(4) + " " + imperialUnit;
+        }
+
     };
 
     self.clearAll = function() {
@@ -147,69 +229,73 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.alternates = true;
         var target;
         if (parseInt(boolean) === 0) {
-          self.alternates = false;
+            self.alternates = false;
             target = $("#selectConverter");
             if (target.height() === 0) {
-              $("#currency , #metric").animate({height:'0'},500, function () {
-                $("#currency , #metric").css('display','none');
-              });
-                target.css('display', 'block').animate({
-                    height: '10%'
-                }, 500);
-            } else {
-                target.css('display', 'block').animate({
+                $("#currency , #metric").animate({
                     height: '0'
-                }, 500);
-            }
-        } else if(self.convertChoice == "Currency Converter"){
-          target = $("#currency");
-          self.alternates = true;
-          if(self.currencyButton === true) {
-            self.currencyButton = false;
-            self.metricButton = false;
-          }
-          else {
-            self.currencyButton = true;
-            self.metricButton = false;
-          }
-          $("#selectConverter").animate({height: '0'},500, function(){
-            if (target.height() === 0) {
-                target.css('display', 'block').animate({
-                    height: '10%'
-                }, 500);
-            } else {
-                target.css('display', 'block').animate({
-                    height: '0'
-                }, 500, function () {
-                  $("#selectConverter").css('display','none');
+                }, 500, function() {
+                    $("#currency , #metric").css('display', 'none');
                 });
+                target.css('display', 'block').animate({
+                    height: '10%'
+                }, 500);
+            } else {
+                target.css('display', 'block').animate({
+                    height: '0'
+                }, 500);
             }
-          });
+        } else if (self.convertChoice == "Currency Converter") {
+            target = $("#currency");
+            self.alternates = true;
+            if (self.currencyButton === true) {
+                self.currencyButton = false;
+                self.metricButton = false;
+            } else {
+                self.currencyButton = true;
+                self.metricButton = false;
+            }
+            $("#selectConverter").animate({
+                height: '0'
+            }, 500, function() {
+                if (target.height() === 0) {
+                    target.css('display', 'block').animate({
+                        height: '10%'
+                    }, 500);
+                } else {
+                    target.css('display', 'block').animate({
+                        height: '0'
+                    }, 500, function() {
+                        $("#selectConverter").css('display', 'none');
+                    });
+                }
+            });
 
-        } else if(self.convertChoice == "Metric Converter"){
-          target = $("#metric");
-          self.alternates = true;
-          if(self.metricButton === true) {
-            self.metricButton = false;
-            self.currencyButton = false;
-          }
-          else {
-            self.metricButton = true;
-            self.currencyButton = false;
-          }
-          $("#selectConverter").animate({height: '0'},500, function () {
-            if (target.height() === 0) {
-                target.css('display', 'block').animate({
-                    height: '10%'
-                }, 500);
+        } else if (self.convertChoice == "Metric Converter") {
+            target = $("#metric");
+            self.alternates = true;
+            if (self.metricButton === true) {
+                self.metricButton = false;
+                self.currencyButton = false;
             } else {
-                target.css('display', 'block').animate({
-                    height: '0'
-                }, 500, function(){
-                  $("#selectConverter").css('display','none');
-                });
+                self.metricButton = true;
+                self.currencyButton = false;
             }
-          });
+            $("#selectConverter").animate({
+                height: '0'
+            }, 500, function() {
+                if (target.height() === 0) {
+                    target.css('display', 'block').animate({
+                        height: '10%'
+                    }, 500);
+                } else {
+                    target.css('display', 'block').animate({
+                        height: '0'
+                    }, 500, function() {
+                        $("#selectConverter").css('display', 'none');
+                    });
+                }
+            });
         }
     };
 }]);

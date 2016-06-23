@@ -131,6 +131,11 @@ h3  {
 .buffer {
   margin: none;
 }
+
+.switchMetric {
+  font-size: 1.5em;
+  padding-top: 2%;
+}
 @media screen and (max-width: 414px) {
   .calculatorContainer {
     height: 90%;

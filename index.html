@@ -59,14 +59,25 @@
                         </div>
                     </div>
                     <div id="metric" class="metric-container col-sm-12 col-xs-12">
-                        <div class="metric-menu col-sm-6 col-xs-6">
-                            <select class="form-control" ng-model="cc.imperial">
+                        <div class="metric-menu col-sm-5 col-xs-5" ng-hide="toggleMenu">
+                            <select class="form-control" ng-model="cc.imperial" ng-change="cc.changeMetric(0)">
                                 <option ng-repeat="unit in cc.imperialArray">{{ unit }}</option>
                             </select>
                         </div>
-                        <div class="metric-menu col-sm-6 col-xs-6">
+                        <div class="metric-menu col-sm-5 col-xs-5" ng-show="toggleMenu">
+                            <select class="form-control" ng-model="cc.metric" ng-change="cc.changeMetric(1)">
+                                <option ng-repeat="metric in cc.metricWholeArray">{{ metric }}</option>
+                            </select>
+                        </div>
+                        <i class="switchMetric glyphicon glyphicon-retweet col-sm-2 col-xs-2" ng-click="toggleMenu = !toggleMenu; cc.metricSwitch = !cc.metricSwitch"></i>
+                        <div class="metric-menu col-sm-5 col-xs-5" ng-hide="toggleMenu">
                             <select class="form-control" ng-model="cc.metric">
                                 <option ng-repeat="metric in cc.metricArray">{{ metric.unit }}</option>
+                            </select>
+                        </div>
+                        <div class="metric-menu col-sm-5 col-xs-5" ng-show="toggleMenu">
+                            <select class="form-control" ng-model="cc.imperial">
+                                <option ng-repeat="unit in cc.imperialArray">{{ unit }}</option>
                             </select>
                         </div>
                     </div>
