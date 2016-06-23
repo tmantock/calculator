@@ -244,6 +244,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         var target;
         if (parseInt(boolean) === 0) {
             self.alternates = false;
+            self.convertChoice = "Choose a converter";
             target = $("#selectConverter");
             if (target.height() === 0) {
                 $("#currency , #metric").animate({
