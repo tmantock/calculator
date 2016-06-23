@@ -29,8 +29,9 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.equalClick = false;
     self.equation = [];
     self.displayCurrency = '';
-    self.imperial = '';
-    self.metric = '';
+    self.imperial = self.imperialArray[0];
+    self.metric = self.metricArray[0].unit;
+    self.convertChoice = "Choose a converter";
     self.alternates = false;
     self.metricButton = false;
     self.currencyButton = false;
@@ -50,7 +51,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.updateDigit = function(number) {
-        if (parseInt(self.output) === 0 && number != '.' || self.output == "Ready when you are!" || self.equalClick === true) {
+        if (self.output == '0' && number != '.' || self.output == "Ready when you are!" || self.equalClick === true) {
             self.output = '';
             self.equalClick = false;
         }
@@ -81,8 +82,8 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
             result = "Ready when you are!";
         } else {
             for (var i = 0; i < self.equation.length; i++) {
-                x = parseInt(self.equation[0]);
-                y = parseInt(self.equation[2]);
+                x = parseFloat(self.equation[0]);
+                y = parseFloat(self.equation[2]);
                 switch (self.equation[1]) {
                     case '+':
                         result = x + y;
@@ -113,7 +114,6 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.calculateMetric = function() {
-        console.log("in metric");
         var metricUnit = self.metric;
         var imperialUnit = self.imperial;
         var digit = self.digit;
@@ -127,11 +127,10 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
                 }
             }
         }
-        console.log(result);
+        self.output = result.toFixed(4) + " " + metricUnit;
     };
 
     self.clearAll = function() {
-        console.log("obj");
         self.equation = [];
         self.output = '';
         self.digit = '';
@@ -147,36 +146,69 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.alternates = true;
         var target;
         if (parseInt(boolean) === 0) {
-            target = $("#currency");
-            if (self.currencyButton === true) {
-                self.currencyButton = false;
-                self.alternates = false;
+          self.alternates = false;
+            target = $("#selectConverter");
+            if (target.height() === 0) {
+              $("#currency , #metric").animate({height:'0'},500, function () {
+                $("#currency , #metric").css('display','none');
+              });
+                target.css('display', 'block').animate({
+                    height: '10%'
+                }, 500);
             } else {
-                self.currencyButton = true;
-                self.metricButton = false;
+                target.css('display', 'block').animate({
+                    height: '0'
+                }, 500);
             }
-        }
-        else if (parseInt(boolean) === 1) {
-          console.log("Boolean 1 Block");
-            target = $("#metric");
-            if (self.metricButton === true) {
-                console.log("true");
-                self.metricButton = false;
-                self.alternates = false;
+        } else if(self.convertChoice == "Currency Converter"){
+          target = $("#currency");
+          self.alternates = true;
+          if(self.currencyButton === true) {
+            self.currencyButton = false;
+            self.metricButton = false;
+          }
+          else {
+            self.currencyButton = true;
+            self.metricButton = false;
+          }
+          $("#selectConverter").animate({height: '0'},500, function(){
+            if (target.height() === 0) {
+                target.css('display', 'block').animate({
+                    height: '10%'
+                }, 500);
             } else {
-                self.metricButton = true;
-                self.currencyButton = false;
+                target.css('display', 'block').animate({
+                    height: '0'
+                }, 500, function () {
+                  $("#selectConverter").css('display','none');
+                });
             }
-        }
+          });
 
-        if (target.height() === 0) {
-            target.animate({
-                height: '10%'
-            }, 500);
-        } else {
-            target.animate({
-                height: '0'
-            }, 500);
+        } else if(self.convertChoice == "Metric Converter"){
+          target = $("#metric");
+          self.alternates = true;
+          if(self.metricButton === true) {
+            self.metricButton = false;
+            self.currencyButton = false;
+          }
+          else {
+            self.metricButton = true;
+            self.currencyButton = false;
+          }
+          $("#selectConverter").animate({height: '0'},500, function () {
+            if (target.height() === 0) {
+                target.css('display', 'block').animate({
+                    height: '10%'
+                }, 500);
+            } else {
+                target.css('display', 'block').animate({
+                    height: '0'
+                }, 500, function(){
+                  $("#selectConverter").css('display','none');
+                });
+            }
+          });
         }
     };
 }]);
