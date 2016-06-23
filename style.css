@@ -9,7 +9,6 @@
 }
 
 .calculatorContainer {
-  padding: 0 !important;
   position: relative;
   top: 35%;
   transform: translateY(-35%);
@@ -132,13 +131,13 @@ h3  {
 .buffer {
   margin: none;
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 414px) {
   .calculatorContainer {
-    height: 75%;
+    height: 90%;
   }
 
   h3 {
-    font-size: 5em;
+    font-size: 3em;
 
   }
 
