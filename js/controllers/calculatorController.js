@@ -81,6 +81,14 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.changeMetric = function(boolean) {
+        if(self.metric == "Celcius" || self.imperial == "Farenheit"){
+          if(boolean === 1){
+            self.imperialArray = ["Imperial Unit","Farenheit"];
+          }else if (boolean === 0) {
+            self.metricArray = [{unit: "Metric Unit"},{unit:"Celcius"}];
+          }
+          return;
+        }
         var suffix;
         if (boolean === 1 && self.metric == "milimeter" || self.metric == "centimeter" || self.metric == "decimeter" || self.metric == "meter" || self.metric == "decameter" || self.metric == "hectometer" || self.metric == "kilometer") {
             self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard"];
@@ -174,7 +182,11 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.calculateMetric = function() {
-      console.log(self.metric);
+        if(self.metric == "Celcius" && self.metricSwitch === false){
+          self.output = ((self.digit - 32) * (5/9)).toFixed(2) + " °C";
+        }else if (self.imperial == "Farenheit" && self.metricSwitch === true) {
+          self.output = ((self.digit * (9/5)) + 32).toFixed(2) + " °F";
+        } else{
         var metricUnit = self.baseMetricUnit;
         var imperialUnit = self.imperial;
         var digit = self.digit;
@@ -203,13 +215,15 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
                 }
             }
         }
-        self.equalClick = true;
-        self.digit = '';
         if (self.metricSwitch === false) {
             self.output = result.toFixed(4) + " " + self.metric;
         } else if (self.metricSwitch === true) {
             self.output = result.toFixed(4) + " " + imperialUnit;
         }
+      }
+        self.equalClick = true;
+        self.digit = '';
+
 
     };
 
