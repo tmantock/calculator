@@ -29,6 +29,7 @@
 
 .screen {
     height: 100%;
+    word-wrap: break-word;
     box-sizing: border-box;
     background: #ffffff;
 }
@@ -36,7 +37,6 @@
 .output {
     position: relative;
     top: 45%;
-    left: 20%;
     transform: translateY(-45%);
 }
 
