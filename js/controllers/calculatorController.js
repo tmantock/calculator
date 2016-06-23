@@ -84,8 +84,10 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         if(self.metric == "Celcius" || self.imperial == "Farenheit"){
           if(boolean === 1){
             self.imperialArray = ["Imperial Unit","Farenheit"];
+            self.imperial = "Imperial Unit";
           }else if (boolean === 0) {
             self.metricArray = [{unit: "Metric Unit"},{unit:"Celcius"}];
+            self.imperial = "Imperial Unit";
           }
           return;
         }
@@ -106,7 +108,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
             suffix = 'liter';
             self.baseMetricUnit = 'liter';
         }
-        var array = ["Metric Unit"];
+        var array = [{unit:"Metric Unit"}];
         for (var i = 0; i < self.prefixes.length; i++) {
             var obj = {};
             var prefix = self.prefixes[i].prefix;
@@ -231,6 +233,12 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.equation = [];
         self.output = '';
         self.digit = '';
+        self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard", "pint", "quart", "gallon", "cup", "teaspoon", "tablespoon", "Farenheit"];
+        self.metricArray = [{
+            unit: "Metric Unit"
+        }];
+        self.imperial = self.imperialArray[0];
+        self.metric = self.metricArray[0].unit;
     };
 
     self.clearEntry = function() {
