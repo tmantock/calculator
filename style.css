@@ -136,6 +136,10 @@ h3  {
   font-size: 1.5em;
   padding-top: 2%;
 }
+
+selector {
+  user-select: none;
+}
 @media screen and (max-width: 414px) {
   .calculatorContainer {
     height: 90%;

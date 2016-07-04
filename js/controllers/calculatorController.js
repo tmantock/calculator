@@ -65,6 +65,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.currencyButton = false;
     self.baseMetricUnit = '';
     self.metricSwitch = false;
+    self.decimal = false;
 
     self.getRate = function(currency) {
         var base = self.selectedBase;
@@ -125,16 +126,30 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
             self.output = '';
             self.equalClick = false;
         }
+
+        if(self.decimal === false && String(number)=='.'){
+          self.decimal = true;
+        } else if(self.decimal === true && String(number)=='.'){
+          return;
+        }
         self.digit += String(number);
         self.output += String(number);
     };
 
     self.operand = function(operand) {
+      var operandPos = self.equation[self.equation.length - 1];
         if (self.digit === '') {
             self.equation.push(self.output, String(operand));
             self.output += (' ' + String(operand) + ' ');
-            console.log(self.equation);
-        } else {
+        }
+        // else if (operandPos == '+' || operandPos == '-' || operandPos == '×' || operandPos == '÷') {
+        //   self.equation.splice(self.equation.length-1,1);
+        //   self.equation.push(self.digit, String(operand));
+        //   self.digit = '';
+        //   self.output += (' ' + String(operand) + ' ');
+        //   console.log(self.equation);
+        // }
+        else {
             self.equation.push(self.digit, String(operand));
             self.digit = '';
             self.output += (' ' + String(operand) + ' ');
@@ -150,22 +165,30 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         var result;
         if (self.equation[0] === '') {
             result = "Ready when you are!";
+        }else if (self.equation.length === 1) {
+          result = parseFloat(self.equation[0]);
         } else {
-            for (var i = 0; i < self.equation.length; i++) {
+            for (var i = 0; i < self.equation.length;) {
                 x = parseFloat(self.equation[0]);
                 y = parseFloat(self.equation[2]);
+                i+=2;
+                i--;
                 switch (self.equation[1]) {
                     case '+':
                         result = x + y;
+                        i=0;
                         break;
                     case '-':
                         result = x - y;
+                        i=0;
                         break;
                     case '×':
                         result = x * y;
+                        i=0;
                         break;
                     case '÷':
                         result = x / y;
+                        i=0;
                         break;
                 }
                 self.equation.splice(0, 3, result);
@@ -239,11 +262,13 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         }];
         self.imperial = self.imperialArray[0];
         self.metric = self.metricArray[0].unit;
+        self.decimal = false;
     };
 
     self.clearEntry = function() {
         self.digit = '';
         self.output = '';
+        self.decimal = false;
         self.equation.splice(self.equation.length - 1, 1);
     };
 
