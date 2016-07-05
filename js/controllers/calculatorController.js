@@ -181,6 +181,18 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
           array.push(array[0]);
         }
 
+        if(array.length > 3){
+          var subArray = [];
+          if(array[array.length-1] == "+" || array[array.length-1] == "-" || array[array.length-1] == "÷" || array[array.length-1] == "×"){
+            subArray = array.slice(0);
+            for(var p = 0; p < array.length - 1; p++){
+              var push = array[p];
+              subArray.push(push);
+            }
+            array = subArray;
+          }
+        }
+
         if (array[0] === '') {
             result = "Ready when you are!";
         }else if (array.length === 1) {
