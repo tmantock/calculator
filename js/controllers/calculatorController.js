@@ -52,10 +52,11 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.selectedBase = self.basecurrencies[0];
     self.selectedConvert = self.selectcurrencies[0];
     self.exchangeRate = '';
-    self.output = '';
+    self.output = "Click here to see more";
     self.digit = '';
     self.equalClick = false;
     self.equation = [];
+    self.repeatEquation = [];
     self.displayCurrency = '';
     self.imperial = self.imperialArray[0];
     self.metric = self.metricArray[0].unit;
@@ -66,6 +67,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.baseMetricUnit = '';
     self.metricSwitch = false;
     self.decimal = false;
+    self.operator = false;
 
     self.getRate = function(currency) {
         var base = self.selectedBase;
@@ -122,7 +124,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.updateDigit = function(number) {
-        if (self.output == '0' && number != '.' || self.output == "Ready when you are!" || self.equalClick === true) {
+        if (self.output == '0' && number != '.' || self.output == "Ready when you are!" || self.output == "Click here to see more" || self.equalClick === true) {
             self.output = '';
             self.equalClick = false;
         }
@@ -134,46 +136,62 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         }
         self.digit += String(number);
         self.output += String(number);
+        self.operator = true;
     };
 
     self.operand = function(operand) {
-      var operandPos = self.equation[self.equation.length - 1];
+      if(self.operator === true){
         if (self.digit === '') {
             self.equation.push(self.output, String(operand));
+            self.repeatEquation.push(String(operand),self.output,String(operand));
             self.output += (' ' + String(operand) + ' ');
         }
-        // else if (operandPos == '+' || operandPos == '-' || operandPos == '×' || operandPos == '÷') {
-        //   self.equation.splice(self.equation.length-1,1);
-        //   self.equation.push(self.digit, String(operand));
-        //   self.digit = '';
-        //   self.output += (' ' + String(operand) + ' ');
-        //   console.log(self.equation);
-        // }
         else {
             self.equation.push(self.digit, String(operand));
+            self.repeatEquation.push(String(operand),self.digit,String(operand));
             self.digit = '';
+            self.decimal = false;
             self.output += (' ' + String(operand) + ' ');
         }
         self.equalClick = false;
+        self.operator = false;
+      }
+
     };
 
     self.equate = function() {
-        self.equation.push(self.digit);
+        if(self.digit !== ""){
+          self.equation.push(self.digit);
+          self.repeatEquation.push(self.digit);
+        }
         self.digit = '';
         var x;
         var y;
         var result;
-        if (self.equation[0] === '') {
+        var array = [];
+
+        if(self.equalClick === false){
+          array = self.equation.slice(0);
+        } else if(self.equalClick === true){
+          array = self.repeatEquation.slice(0);
+          array.unshift(self.output);
+        }
+
+        if(array.length === 2){
+          array.push(array[0]);
+        }
+
+        if (array[0] === '') {
             result = "Ready when you are!";
-        }else if (self.equation.length === 1) {
+        }else if (array.length === 1) {
           result = parseFloat(self.equation[0]);
         } else {
-            for (var i = 0; i < self.equation.length;) {
-                x = parseFloat(self.equation[0]);
-                y = parseFloat(self.equation[2]);
+            for (var i = 0; i < array.length;) {
+                x = parseFloat(array[0]);
+                y = parseFloat(array[2]);
                 i+=2;
                 i--;
-                switch (self.equation[1]) {
+                switch (array[1]) {
                     case '+':
                         result = x + y;
                         i=0;
@@ -187,13 +205,19 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
                         i=0;
                         break;
                     case '÷':
-                        result = x / y;
-                        i=0;
+                        if(y === 0){
+                          result = "Error";
+                        } else {
+                          result = x / y;
+                          i=0;
+                        }
                         break;
                 }
-                self.equation.splice(0, 3, result);
+                array.splice(0, 3, result);
             }
         }
+        array = [];
+        self.operator = true;
         self.equalClick = true;
         self.equation = [];
         self.output = result;
@@ -204,6 +228,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.output = (self.digit * self.exchangeRate).toFixed(2) + ' ' + self.displayCurrency;
         self.digit = '';
         self.equalClick = true;
+        self.operator = true;
     };
 
     self.calculateMetric = function() {
@@ -247,6 +272,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         }
       }
         self.equalClick = true;
+        self.operator = true;
         self.digit = '';
 
 
@@ -254,6 +280,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
 
     self.clearAll = function() {
         self.equation = [];
+        self.repeatEquation = [];
         self.output = '';
         self.digit = '';
         self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard", "pint", "quart", "gallon", "cup", "teaspoon", "tablespoon", "Farenheit"];
@@ -263,12 +290,14 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.imperial = self.imperialArray[0];
         self.metric = self.metricArray[0].unit;
         self.decimal = false;
+        self.operator = false;
     };
 
     self.clearEntry = function() {
         self.digit = '';
         self.output = '';
         self.decimal = false;
+        self.operator = true;
         self.equation.splice(self.equation.length - 1, 1);
     };
 
