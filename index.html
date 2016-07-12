@@ -70,7 +70,7 @@
                                 <option ng-repeat="metric in cc.metricWholeArray">{{ metric }}</option>
                             </select>
                         </div>
-                        <i class="switchMetric glyphicon glyphicon-retweet col-sm-2 col-xs-2" ng-click="toggleMenu = !toggleMenu; cc.metricSwitch = !cc.metricSwitch"></i>
+                        <i class="switchMetric glyphicon glyphicon-retweet col-sm-2 col-xs-2" ng-click="toggleMenu = !toggleMenu; cc.metricSwitch = !cc.metricSwitch; cc.sortList()"></i>
                         <div class="metric-menu col-sm-5 col-xs-5" ng-hide="toggleMenu">
                             <select class="form-control" ng-model="cc.metric">
                                 <option ng-repeat="metric in cc.metricArray">{{ metric.unit }}</option>
@@ -181,17 +181,7 @@
                                     <h3>+</h3>
                                 </div>
                             </div>
-                            <div ng-hide="cc.alternates" class="operator col-sm-12 col-xs-12" ng-click="cc.equate()">
-                                <div class="text">
-                                    <h3>=</h3>
-                                </div>
-                            </div>
-                            <div ng-show="cc.currencyButton;" class="operator col-sm-12 col-xs-12" ng-click="cc.calculate()">
-                                <div class="text">
-                                    <h3>=</h3>
-                                </div>
-                            </div>
-                            <div ng-show="cc.metricButton" class="operator col-sm-12 col-xs-12" ng-click="cc.calculateMetric()">
+                            <div class="operator col-sm-12 col-xs-12" ng-click="cc.equate()">
                                 <div class="text">
                                     <h3>=</h3>
                                 </div>

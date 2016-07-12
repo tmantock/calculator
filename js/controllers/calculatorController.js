@@ -61,9 +61,6 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.imperial = self.imperialArray[0];
     self.metric = self.metricArray[0].unit;
     self.convertChoice = "Choose a converter";
-    self.alternates = false;
-    self.metricButton = false;
-    self.currencyButton = false;
     self.baseMetricUnit = '';
     self.metricSwitch = false;
     self.decimal = false;
@@ -87,10 +84,10 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         if(self.metric == "Celcius" || self.imperial == "Farenheit"){
           if(boolean === 1){
             self.imperialArray = ["Imperial Unit","Farenheit"];
-            self.imperial = "Imperial Unit";
+
           }else if (boolean === 0) {
             self.metricArray = [{unit: "Metric Unit"},{unit:"Celcius"}];
-            self.imperial = "Imperial Unit";
+
           }
           return;
         }
@@ -233,25 +230,44 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.equalClick = true;
         self.equation = [];
         self.output = result;
+        if(self.convertChoice == "Currency Converter") {
+          self.calculate(result);
+        } else if(self.convertChoice == "Metric Converter") {
+          self.calculateMetric(result);
+        }
         return result;
     };
 
-    self.calculate = function() {
-        self.output = (self.digit * self.exchangeRate).toFixed(2) + ' ' + self.displayCurrency;
+    self.calculate = function(number) {
+        self.output = (number * self.exchangeRate).toFixed(2) + ' ' + self.displayCurrency;
         self.digit = '';
         self.equalClick = true;
         self.operator = true;
     };
 
-    self.calculateMetric = function() {
+    self.sortList = function () {
+      console.log(self.metricSwitch);
+      if(self.metricSwitch === false) {
+        self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard", "pint", "quart", "gallon", "cup", "teaspoon", "tablespoon", "Farenheit"];
+        self.metricWholeArray = ["Metric Unit"];
+      }
+      else {
+        self.imperialArray = ["Imperial Unit"];
+        self.metricWholeArray = ["Metric Unit", "milimeter", "centimeter", "decimeter", "meter", "decameter", "hectometer", "kilometer", "mililiter", "centiliter", "deciliter", "liter", "decaliter", "hectoliter", "kiloliter", "Celcius"];
+      }
+      self.metric = "Metric Unit";
+      self.imperial = "Imperial Unit";
+    };
+
+    self.calculateMetric = function(number) {
         if(self.metric == "Celcius" && self.metricSwitch === false){
-          self.output = ((self.digit - 32) * (5/9)).toFixed(2) + " °C";
+          self.output = ((number - 32) * (5/9)).toFixed(2) + " °C";
         }else if (self.imperial == "Farenheit" && self.metricSwitch === true) {
-          self.output = ((self.digit * (9/5)) + 32).toFixed(2) + " °F";
+          self.output = ((number * (9/5)) + 32).toFixed(2) + " °F";
         } else{
         var metricUnit = self.baseMetricUnit;
         var imperialUnit = self.imperial;
-        var digit = self.digit;
+        var digit = number;
         var result;
         for (var i = 0; i < self.metricConversionArray.length; i++) {
             if (metricUnit == self.metricConversionArray[i].unit) {
@@ -317,7 +333,6 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.alternates = true;
         var target;
         if (parseInt(boolean) === 0) {
-            self.alternates = false;
             self.convertChoice = "Choose a converter";
             target = $("#selectConverter");
             if (target.height() === 0) {
@@ -336,14 +351,6 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
             }
         } else if (self.convertChoice == "Currency Converter") {
             target = $("#currency");
-            self.alternates = true;
-            if (self.currencyButton === true) {
-                self.currencyButton = false;
-                self.metricButton = false;
-            } else {
-                self.currencyButton = true;
-                self.metricButton = false;
-            }
             $("#selectConverter").animate({
                 height: '0'
             }, 500, function() {
@@ -362,14 +369,6 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
 
         } else if (self.convertChoice == "Metric Converter") {
             target = $("#metric");
-            self.alternates = true;
-            if (self.metricButton === true) {
-                self.metricButton = false;
-                self.currencyButton = false;
-            } else {
-                self.metricButton = true;
-                self.currencyButton = false;
-            }
             $("#selectConverter").animate({
                 height: '0'
             }, 500, function() {
