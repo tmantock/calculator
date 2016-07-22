@@ -153,7 +153,6 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
         self.equalClick = false;
         self.operator = false;
       }
-
     };
 
     self.equate = function() {
@@ -322,11 +321,15 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.clearEntry = function() {
+        if(self.operator === true){
+          self.equation.push(self.digit);
+        }
         self.digit = '';
-        self.output = '';
+        var string = String(self.output);
+        self.output = string.slice(0,-2);
         self.decimal = false;
         self.operator = true;
-        self.equation.splice(self.equation.length - 1, 1);
+        self.equation.splice(-1, 1);
     };
 
     self.expandOptions = function(boolean) {
