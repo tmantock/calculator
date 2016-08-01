@@ -41,6 +41,7 @@
                         <div class="converter-menu col-sm-12 col-xs-12">
                             <select class="form-control" ng-model="cc.convertChoice" ng-change="cc.expandOptions()">
                                 <option>Choose a converter</option>
+                                <option>Normal Calculator</option>
                                 <option>Currency Converter</option>
                                 <option>Metric Converter</option>
                             </select>
@@ -196,6 +197,7 @@
         <script src="js/controllers/calculatorController.js"></script>
         <!-- Services -->
         <script src="js/services/getcurrency.js"></script>
+        <script src="js/services/getRegions.js"></script>
         <!-- Material bootstrap scripts -->
         <script src="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.9/js/ripples.min.js"></script>
         <script src="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.9/js/material.min.js"></script>

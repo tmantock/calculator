@@ -1,7 +1,13 @@
-app.controller("calculatorController", ["getCurrency", function(getCurrency) {
+app.controller("calculatorController", ["getCurrency", "getRegions", function(getCurrency, getRegions) {
     var self = this;
-    self.basecurrencies = ["Base Currency", "USD", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "ZAR", "EUR"];
-    self.selectcurrencies = ["Converted Currency", "EUR", "USD", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "ZAR"];
+    self.basecurrencies = ["Base Currency"];
+    self.selectcurrencies = ["Converted Currency"];
+    self.loadRegions = getRegions.success(function(data){
+        for(var index in data.rates){
+            self.basecurrencies.push(index);
+            self.selectcurrencies.push(index);
+        }
+    })
     self.imperialArray = ["Imperial Unit", "inch", "feet", "mile", "yard", "pint", "quart", "gallon", "cup", "teaspoon", "tablespoon", "Farenheit"];
     self.metricWholeArray = ["Metric Unit", "milimeter", "centimeter", "decimeter", "meter", "decameter", "hectometer", "kilometer", "mililiter", "centiliter", "deciliter", "liter", "decaliter", "hectoliter", "kiloliter", "Celcius"];
     self.metricConversionArray = [{
@@ -60,7 +66,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     self.displayCurrency = '';
     self.imperial = self.imperialArray[0];
     self.metric = self.metricArray[0].unit;
-    self.convertChoice = "Choose a converter";
+    self.convertChoice = "Choose A Converter";
     self.baseMetricUnit = '';
     self.metricSwitch = false;
     self.decimal = false;
@@ -121,7 +127,7 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.updateDigit = function(number) {
-        if (self.output == '0' && number != '.' || self.output == "Ready when you are!" || self.output == "Click here to see more" || self.equalClick === true) {
+        if (self.output == '0' && number != '.' || self.output == "Ready when you are!" || self.output == "Click here to see more" || self.equalClick === true || self.output == "Error") {
             self.output = '';
             self.equalClick = false;
         }
@@ -137,6 +143,10 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.operand = function(operand) {
+      if(self.output === "Error" || self.output == "Ready when you are!" || self.output == "Click here to see more"){
+          self.output = '';
+          self.equalClick = false;
+      }
       if(self.operator === true){
         if (self.digit === '') {
             self.equation.push(self.output, String(operand));
@@ -321,21 +331,24 @@ app.controller("calculatorController", ["getCurrency", function(getCurrency) {
     };
 
     self.clearEntry = function() {
-        if(self.operator === true){
-          self.equation.push(self.digit);
+        console.log(self.convertChoice);
+        if(String(self.convertChoice) === "Choose a converter" || String(self.convertChoice) === "Normal Calculator"){
+            if(self.operator === true){
+                self.equation.push(self.digit);
+            }
+            self.digit = '';
+            var string = String(self.output);
+            self.output = string.slice(0,-2);
+            self.decimal = false;
+            self.operator = true;
+            self.equation.splice(-1, 1);
         }
-        self.digit = '';
-        var string = String(self.output);
-        self.output = string.slice(0,-2);
-        self.decimal = false;
-        self.operator = true;
-        self.equation.splice(-1, 1);
     };
 
     self.expandOptions = function(boolean) {
         self.alternates = true;
         var target;
-        if (parseInt(boolean) === 0) {
+        if (parseInt(boolean) === 0 || self.convertChoice === "Normal Calculator") {
             self.convertChoice = "Choose a converter";
             target = $("#selectConverter");
             if (target.height() === 0) {
