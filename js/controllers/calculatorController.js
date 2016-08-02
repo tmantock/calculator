@@ -201,6 +201,8 @@ app.controller("calculatorController", ["getCurrency", "getRegions", function(ge
 
         if (array[0] === '') {
             result = "Ready when you are!";
+        }else if(array[0] === "Ready when you are!" || array[0] === "Error" || self.output === "Click here to see more"){
+            return;
         }else if (array.length === 1) {
           result = parseFloat(self.equation[0]);
         } else {
