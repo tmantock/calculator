@@ -250,7 +250,7 @@ app.controller("calculatorController", ["getCurrency", "getRegions", function(ge
     };
 
     self.calculate = function(number) {
-        self.output = (number * self.exchangeRate).toFixed(2) + ' ' + self.displayCurrency;
+        self.output = (parseFloat(number) * self.exchangeRate).toFixed(2) + ' ' + self.displayCurrency;
         self.digit = '';
         self.equalClick = true;
         self.operator = true;
@@ -271,6 +271,7 @@ app.controller("calculatorController", ["getCurrency", "getRegions", function(ge
     };
 
     self.calculateMetric = function(number) {
+        number = parseFloat(number);
         if(self.metric == "Celcius" && self.metricSwitch === false){
           self.output = ((number - 32) * (5/9)).toFixed(2) + " °C";
         }else if (self.imperial == "Farenheit" && self.metricSwitch === true) {
