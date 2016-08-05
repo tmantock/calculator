@@ -271,15 +271,14 @@ app.controller("calculatorController", ["getCurrency", "getRegions", function(ge
     };
 
     self.calculateMetric = function(number) {
-        number = parseFloat(number);
         if(self.metric == "Celcius" && self.metricSwitch === false){
-          self.output = ((number - 32) * (5/9)).toFixed(2) + " °C";
+          self.output = ((parseFloat(number) - 32) * (5/9)).toFixed(2) + " °C";
         }else if (self.imperial == "Farenheit" && self.metricSwitch === true) {
-          self.output = ((number * (9/5)) + 32).toFixed(2) + " °F";
+          self.output = ((parseFloat(number) * (9/5)) + 32).toFixed(2) + " °F";
         } else{
         var metricUnit = self.baseMetricUnit;
         var imperialUnit = self.imperial;
-        var digit = number;
+        var digit = parseFloat(number);
         var result;
         for (var i = 0; i < self.metricConversionArray.length; i++) {
             if (metricUnit == self.metricConversionArray[i].unit) {
