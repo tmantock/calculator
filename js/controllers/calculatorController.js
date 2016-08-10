@@ -66,7 +66,7 @@ app.controller("calculatorController", ["getCurrency", "getRegions", function(ge
     self.displayCurrency = '';
     self.imperial = self.imperialArray[0];
     self.metric = self.metricArray[0].unit;
-    self.convertChoice = "Choose A Converter";
+    self.convertChoice = "Choose a converter";
     self.baseMetricUnit = '';
     self.metricSwitch = false;
     self.decimal = false;
