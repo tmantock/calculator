@@ -10,4 +10,4 @@ The logic for converting measurements is embedded within logic of the calculator
 - Material Design Bootstrap
 - AngularJS
 
-###[Live Demo](http://www.tevinmantock.com/applications/calculator)
+### [Live Demo](https://tmantock.github.io/calculator/)
